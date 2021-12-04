@@ -1,0 +1,12 @@
+{
+  "manifest_version": 1,
+  "id": "osw.rpgtools",
+  "app_min_version": "2.2",
+  "version": "1.0.0",
+  "name": "RPG Tools",
+  "description": "Set of RPG tools for Joplin.",
+  "author": "Oskar Świda",
+  "homepage_url": "tbd",
+  "repository_url": "tbd",
+  "keywords": ["rpg", "hexflower", "dice roller"]
+}
