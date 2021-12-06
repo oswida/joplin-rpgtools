@@ -1,27 +1,15 @@
 import { DiceRoll } from "@dice-roller/rpg-dice-roller";
-import joplin from "api";
 import { RTMessage } from "../main";
+import { AppData } from "./../util/appdata";
 
-export const ProcessDiceMessage = (
-  view: string,
-  content: string,
-  msg: RTMessage
-) => {
-  var doc = new Document();
-  var h = doc.createElement("html");
-  h.innerHTML = content;
-  doc.appendChild(h);
-
-  const el = doc.getElementById(msg.id);
-  if (el) {
-    switch (msg.type) {
-      case "dice:roll": {
-        const roll = new DiceRoll(msg.data);
-        (el as HTMLSpanElement).innerHTML = roll.total.toString();
-        joplin.views.panels.setHtml(view, h.outerHTML);
-      }
+export const ProcessDiceMessage = async (msg: RTMessage) => {
+  switch (msg.type) {
+    case "dice:roll": {
+      const ad = new AppData();
+      ad.loadFromSelected();
+      const roll = new DiceRoll(msg.data);
+      ad.dice[msg.id] = roll.total.toString();
+      ad.writeToSelected();
     }
-  } else {
-    console.error("Cannot find element with id=" + msg.id);
   }
 };
