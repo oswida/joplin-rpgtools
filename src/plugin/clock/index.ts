@@ -1,17 +1,18 @@
 import { parse } from "yaml";
 import { RpgClockImg_4 } from "./../assets/clock4";
-import { OnClickAction } from "./../util/html";
+import { errorHtml, OnClickAction } from "./../util/html";
+
+export const CLOCK_PREFIX = "rpg-clock";
 
 export interface RpgClockData {
-  id: string;
   count: number;
   segments: string;
 }
 
-export const rpgClockHtml = (content: string) => {
+export const rpgClockHtml = (bid: string, content: string) => {
   const data = parse(content) as RpgClockData;
   const el = document.createElement("div");
-  el.className += "rpgclock";
+  el.className += CLOCK_PREFIX;
   switch (data.count) {
     case 4:
       el.innerHTML = RpgClockImg_4.trim();
@@ -24,13 +25,20 @@ export const rpgClockHtml = (content: string) => {
         }
         e.setAttribute(
           "onclick",
-          OnClickAction("rpgclock", data.id, i.toString())
+          OnClickAction(CLOCK_PREFIX, bid, i.toString())
         );
       }
   }
   return el.outerHTML;
 };
 
-export const rpgClockContent = (content: string) => {
-  return rpgClockHtml(content);
+export const rpgClockContent = (info: string, content: string) => {
+  const parts = info.split(":");
+  if (parts.length < 2)
+    return errorHtml(
+      "Clock block should have an ID. Please use `" +
+        CLOCK_PREFIX +
+        ":id` notation. "
+    );
+  return rpgClockHtml(parts[1], content);
 };

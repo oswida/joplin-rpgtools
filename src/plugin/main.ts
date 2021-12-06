@@ -1,3 +1,4 @@
+import { CLOCK_PREFIX } from "./clock/index";
 import { ProcessClockMessage } from "./clock/msg";
 import { ProcessDiceMessage } from "./dice/msg";
 
@@ -16,11 +17,11 @@ export class RTPlugin {
       return;
     }
     const data = JSON.parse(decoded) as RTMessage;
-    console.log("Process message");
+    console.log("Message", data);
 
     if (data.type.startsWith("dice")) {
       ProcessDiceMessage(data);
-    } else if (data.type.startsWith("rpgclock")) {
+    } else if (data.type.startsWith(CLOCK_PREFIX)) {
       ProcessClockMessage(data);
     }
   }

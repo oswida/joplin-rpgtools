@@ -1,7 +1,7 @@
 import { DiceRoll } from "@dice-roller/rpg-dice-roller";
 import { randomUUID } from "crypto";
 import { diceSpanHtml } from "../dice/html";
-import { rpgClockContent } from "./../clock/index";
+import { CLOCK_PREFIX, rpgClockContent } from "./../clock/index";
 
 export const ParseInlineCode = (content: string): string[] => {
   const cc = content.trim().split(":");
@@ -54,11 +54,10 @@ export default function () {
         self
       ) {
         const token = tokens[idx];
-        switch (token.info) {
-          case "rpgclock":
-            return rpgClockContent(token.content);
-          default:
-            return defaultRender(tokens, idx, options, env, self);
+        if (token.info.startsWith(CLOCK_PREFIX)) {
+          return rpgClockContent(token.info, token.content);
+        } else {
+          return defaultRender(tokens, idx, options, env, self);
         }
       };
     },

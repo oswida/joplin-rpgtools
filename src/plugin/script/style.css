@@ -8,9 +8,13 @@
   cursor: grab;
 }
 
-.rpgclock {
+.rpg-clock {
   max-width: 7em;
   min-height: 7em;
   width: 7em;
   height: 7em;
+}
+
+.error {
+  color: #ff2222;
 }

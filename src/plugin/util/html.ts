@@ -18,3 +18,7 @@ export const OnClickAction = (
   `;
   return action.trim().replace(/\n/g, " ");
 };
+
+export const errorHtml = (text: string): string => {
+  return `<div class="error">${text}</div>`;
+};
