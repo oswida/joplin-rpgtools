@@ -1,4 +1,5 @@
 import MarkdownIt = require("markdown-it");
+import Token = require("markdown-it/lib/token");
 
 export interface FenceData {
   from: number;
@@ -37,4 +38,28 @@ export const replaceFenceContent = (
   retv.push(...newContent.split("\n"));
   retv.push(...lines.slice(fn.to + 1, undefined));
   return retv.join("\n");
+};
+
+export interface InlineData {
+  type: string;
+  text: string;
+}
+
+export const findInline = (
+  content: string,
+  type: string
+): InlineData | null => {
+  const reg = RegExp(`\`(${type}[^\`]*)\``);
+  const result = reg.exec(content);
+  if (result == null) return null;
+  return <InlineData>{ type: type, text: result[1] };
+};
+
+export const replaceInlineContent = (
+  source: string,
+  fn: InlineData,
+  newContent: string
+): string => {
+  const reg = RegExp(`\`${fn.type}[^\`]*\``);
+  return source.replace(reg, `\`${newContent}\``);
 };

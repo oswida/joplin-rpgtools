@@ -5,7 +5,8 @@
   padding-right: 5px;
   border: solid 1px grey;
   border-radius: 5px;
-  cursor: grab;
+  cursor: pointer;
+  margin-right: 1em;
 }
 
 .rpg-clock {
