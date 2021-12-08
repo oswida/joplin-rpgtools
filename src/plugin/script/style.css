@@ -14,8 +14,13 @@
   min-height: 7em;
   width: 7em;
   height: 7em;
+  text-align: center;
 }
 
 .error {
   color: #ff2222;
+}
+
+.centered {
+  text-align: center;
 }

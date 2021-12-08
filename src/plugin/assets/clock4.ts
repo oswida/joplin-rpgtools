@@ -1,4 +1,4 @@
-export const RpgClockImg_4 = `
+export const RpgClock_circle4 = `
 <svg version="1.1" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
  <g transform="translate(-33.363 -109.17)" fill="none" stroke="#000" stroke-width="1.0249">
   <path id="s1" d="m63.363 109.68a29.488 29.488 0 0 1 29.488 29.488h-29.488z"/>
