@@ -1,6 +1,6 @@
 import { parse } from "yaml";
 import { RpgClockImg_4 } from "./../assets/clock4";
-import { errorHtml, OnClickAction } from "./../util/html";
+import { errorHtml, clickAction } from "./../util/html";
 
 export const CLOCK_PREFIX = "rpg-clock";
 
@@ -23,10 +23,7 @@ export const rpgClockHtml = (bid: string, content: string) => {
         } else {
           e.style.fill = "transparent";
         }
-        e.setAttribute(
-          "onclick",
-          OnClickAction(CLOCK_PREFIX, bid, i.toString())
-        );
+        e.setAttribute("onclick", clickAction(CLOCK_PREFIX, bid, i.toString()));
       }
   }
   return el.outerHTML;

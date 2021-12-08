@@ -1,5 +1,7 @@
 import { CLOCK_PREFIX, rpgClockContent } from "./../clock/index";
 import { DICE_PREFIX, rpgDiceInlineContent } from "./../dice/index";
+import { RPGTOOLS_DATA_PREFIX, rtDataContainer } from "./../util/toolsdata";
+import MarkdownIt = require("markdown-it");
 
 export default function () {
   return {
@@ -34,7 +36,10 @@ export default function () {
         self
       ) {
         const token = tokens[idx];
-        if (token.info.startsWith(CLOCK_PREFIX)) {
+        if (token.info.startsWith(RPGTOOLS_DATA_PREFIX)) {
+          rtDataContainer.decode(token.content);
+          return "";
+        } else if (token.info.startsWith(CLOCK_PREFIX)) {
           return rpgClockContent(token.info, token.content);
         } else {
           return defaultRender(tokens, idx, options, env, self);

@@ -1,13 +1,16 @@
-import { DICE_PREFIX } from "./dice/index";
 import { CLOCK_PREFIX } from "./clock/index";
 import { ProcessClockMessage } from "./clock/msg";
+import { DICE_PREFIX } from "./dice/index";
 import { ProcessDiceMessage } from "./dice/msg";
+import { RpgPanel } from "./panel/index";
 
 export class RTPlugin {
   noteHash: Record<string, string>;
+  rpgPanel: RpgPanel;
 
   constructor() {
     this.noteHash = {};
+    this.rpgPanel = new RpgPanel();
   }
 
   processMessage(msg: string) {
@@ -15,15 +18,15 @@ export class RTPlugin {
       var decoded = atob(msg);
     } catch (err) {
       console.error(err);
-      return;
+      return err;
     }
     const data = JSON.parse(decoded) as RTMessage;
-    console.log("Message", data);
+    console.log("Processing message", data);
 
     if (data.type.startsWith(DICE_PREFIX)) {
-      ProcessDiceMessage(data);
+      return ProcessDiceMessage(data);
     } else if (data.type.startsWith(CLOCK_PREFIX)) {
-      ProcessClockMessage(data);
+      return ProcessClockMessage(data);
     }
   }
 }

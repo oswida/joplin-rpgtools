@@ -8,11 +8,11 @@ joplin.plugins.register({
   onStart: async function () {
     plugin = new RTPlugin();
 
-    await joplin.contentScripts.onMessage("rpgtools-content", (msg: string) => {
-      plugin.processMessage(msg);
-    });
+    await plugin.rpgPanel.init();
 
-    // joplin.workspace.onNoteChange();
+    await joplin.contentScripts.onMessage("rpgtools-content", (msg: string) => {
+      return plugin.processMessage(msg);
+    });
 
     await joplin.contentScripts.register(
       ContentScriptType.MarkdownItPlugin,
